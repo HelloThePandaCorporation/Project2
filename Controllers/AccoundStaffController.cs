@@ -9,7 +9,7 @@ namespace P2_API_Perkantoran.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController : ControllerBase
+    public class AccoundStaffController : ControllerBase
     {
     }
 }

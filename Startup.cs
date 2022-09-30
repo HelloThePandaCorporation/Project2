@@ -1,18 +1,22 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using P2_API_Perkantoran.Context;
 
+using P2_API_Perkantoran.Repositories.data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace P2_MVC_Perkantoran
+namespace P2_API_Perkantoran
 {
     public class Startup
     {
@@ -27,14 +31,38 @@ namespace P2_MVC_Perkantoran
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-            
-            services.AddSession(option =>
+            services.AddControllers();
+            services.AddDbContext<MyContext>(option => option.UseSqlServer(Configuration.GetConnectionString("MyConnection")));
+            services.AddSwaggerGen(options =>
             {
-                option.IdleTimeout = TimeSpan.FromMinutes(5);
-                option.Cookie.HttpOnly = true;
-                option.Cookie.IsEssential = true;
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "ToDo API",
+                    Description = "An ASP.NET Core Web API for managing ToDo items",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Example Contact",
+                        Url = new Uri("https://example.com/contact")
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Example License",
+                        Url = new Uri("https://example.com/license")
+                    }
+                });
+
+                
+
+                //untuk melakukkan paksa open bila terjadi error karena salahnya input http dicontroller ataupun error external
+                options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             });
+            #region Dependency Injection
+            services.AddScoped<AccountRepository>();
+
+            #endregion Dependency Injection
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,27 +71,29 @@ namespace P2_MVC_Perkantoran
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger(options =>
+                {
+                    //digunakkan bila json yang dipakai adalah versi 2.0
+                    options.SerializeAsV2 = true;
+                });
+                app.UseSwaggerUI(options =>
+                {
+                    //digunnakan untuk menampilkan view dari swagger. yang merah adalah tempat mengambil view swagger.
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                    options.RoutePrefix = string.Empty;
+                });
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
             app.UseRouting();
 
+
             app.UseAuthorization();
-            
-            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
         }
     }

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32802.440
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P2_MVC_Perkantoran", "P2_MVC_Perkantoran\P2_MVC_Perkantoran.csproj", "{54447AE9-F33D-4D29-8D4C-12D3EB75B4BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P2_API_Perkantoran", "P2_API_Perkantoran\P2_API_Perkantoran.csproj", "{5C9BFE9B-27B3-4608-AAA8-4B6DC548A79F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{54447AE9-F33D-4D29-8D4C-12D3EB75B4BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54447AE9-F33D-4D29-8D4C-12D3EB75B4BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54447AE9-F33D-4D29-8D4C-12D3EB75B4BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54447AE9-F33D-4D29-8D4C-12D3EB75B4BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C9BFE9B-27B3-4608-AAA8-4B6DC548A79F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C9BFE9B-27B3-4608-AAA8-4B6DC548A79F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C9BFE9B-27B3-4608-AAA8-4B6DC548A79F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C9BFE9B-27B3-4608-AAA8-4B6DC548A79F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4B8310D1-148E-4097-9413-077CE3BF7A85}
+	EndGlobalSection
+EndGlobal

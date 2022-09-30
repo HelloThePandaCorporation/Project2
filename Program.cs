@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace P2_MVC_Perkantoran
+namespace P2_API_Perkantoran
 {
     public class Program
     {
